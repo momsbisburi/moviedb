@@ -27,7 +27,10 @@ class SearchResults extends Component
         ]);
 
         if ($response->successful()) {
+
             $this->results = $response->json()['results'] ?? [];
+            $this->results = array_filter($this->results, fn($item) => $item['media_type'] !== 'person');
+
         }
     }
 

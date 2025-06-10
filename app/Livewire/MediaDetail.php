@@ -9,7 +9,7 @@ class MediaDetail extends Component
 {
     public $mediaType;
     public $mediaId;
-    public $embedType = 'vid'; // embed | vid | auto
+    public $embedType = 'auto'; // embed | vid | auto
 
     public $media = [];
     public $seasons = [];
@@ -74,12 +74,13 @@ class MediaDetail extends Component
             'vid' => $this->buildEmbedUrl('vidlink.pro'),
             'embed' => $this->buildEmbedUrl('embed.su'),
             'auto' => $this->buildEmbedUrl('player.autoembed.cc'),
+            'vidcloud' => $this->buildEmbedUrl('vidclouds.us'),
         };
 
         return view('livewire.media-detail', [
             'media' => $this->media,
             'embedUrl' => $embedUrl,
-        ])->layout('layouts.app');
+        ])->layout('layouts.layout');
     }
 
     protected function buildEmbedUrl($provider)
@@ -88,9 +89,13 @@ class MediaDetail extends Component
             'vidlink.pro' => 'https://vidsrc.icu/embed',
             'embed.su' => 'https://embed.su/embed',
             'player.autoembed.cc' => 'https://player.autoembed.cc/embed',
+            'vidclouds.us' => 'https://vidclouds.us/embed/',
         };
 
         if ($this->mediaType === 'movie') {
+            if($provider == "vidclouds.us"){
+                return "$base/{$this->mediaId}.html";
+            }
             return "$base/movie/{$this->mediaId}";
         }
 
@@ -99,6 +104,9 @@ class MediaDetail extends Component
         //dd($id);
         if($provider=="vidlink.pro"){
             return "https://vidsrc.xyz/embed/tv?imdb={$id}&season={$this->selectedSeason}&episode={$this->selectedEpisode}";
+        }
+        if($provider == "vidclouds.us"){
+            return "https://vidclouds.us/embed/tv.php?imdb={$id}&season={$this->selectedSeason}&episode={$this->selectedEpisode}";
         }
 
         return "$base/tv/{$id}/{$this->selectedSeason}/{$this->selectedEpisode}";

@@ -33,6 +33,20 @@ class TmdbService
                 ->toArray();
         });
     }
+    public function getTopRated($type = 'movie')
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $this->bearer,
+            'Accept' => 'application/json',
+        ])->get("{$this->base}{$type}/top_rated", [
+            'language' => 'en-US',
+            'page' => 1,
+        ]);
+
+        $filtered = array_filter($response->json()['results'] ?? [], fn($item) => !empty($item['poster_path']));
+        return array_slice($filtered, 0, 12);
+    }
+
     public function getPopular($type = 'movie')
     {
         $results = [];
@@ -53,11 +67,12 @@ class TmdbService
             $data = $response->json()['results'] ?? [];
 
             // 3. Filter only results that exist in embed.su
-            $filtered = array_filter($data, function ($item) use ($availableTmdbIds) {
-                return !empty($item['poster_path']) && in_array($item['id'], $availableTmdbIds);
-            });
+//            $filtered = array_filter($data, function ($item) use ($availableTmdbIds) {
+//                return !empty($item['poster_path']) && in_array($item['id'], $availableTmdbIds);
+//            });
 
-            $results = array_merge($results, $filtered);
+//            $results = array_merge($results, $filtered);
+              $results = $data;
         }
 
         return $results;
@@ -89,5 +104,33 @@ class TmdbService
         ])->get("https://api.themoviedb.org/3/tv/{$tvId}/external_ids");
 
         return $response->json()['imdb_id'] ?? null;
+    }
+    public function getPopularSeries()
+    {
+        return $this->fetchWithFilter('tv/popular');
+    }
+
+    public function getTrendingSeries()
+    {
+        return $this->fetchWithFilter('trending/tv/day');
+    }
+
+    public function getTopRatedSeries()
+    {
+        return $this->fetchWithFilter('tv/top_rated');
+    }
+
+    private function fetchWithFilter($endpoint)
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $this->bearer,
+            'Accept' => 'application/json',
+        ])->get("{$this->base}{$endpoint}", [
+            'language' => 'en-US',
+            'page' => 1,
+        ]);
+
+        $filtered = array_filter($response->json()['results'] ?? [], fn($item) => !empty($item['poster_path']));
+        return array_slice($filtered, 0, 12);
     }
 }

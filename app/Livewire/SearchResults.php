@@ -33,6 +33,6 @@ class SearchResults extends Component
 
     public function render()
     {
-        return view('livewire.search-results')->layout('layouts.app');
+        return view('livewire.search-results')->layout('layouts.layout');
     }
 }

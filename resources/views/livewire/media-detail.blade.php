@@ -1,57 +1,42 @@
-<div class=" mx-auto p-4 text-white">
-    <div class="flex flex-col md:flex-row gap-6">
+<div class="relative w-full h-screen bg-black text-white flex flex-col">
 
-        <div class="w-full">
-            <h1 class="text-3xl font-bold mb-2">{{ $media['title'] ?? $media['name'] }}</h1>
+    {{-- Header / Top Bar --}}
+    <div class="flex justify-between items-center px-4 py-3 bg-gradient-to-b from-black/90 to-transparent sticky top-0 z-50">
+        <button onclick="history.back()" class="text-sm bg-black/60 px-3 py-1 rounded hover:bg-black/80">
+            ← Exit
+        </button>
+        <h1 class="text-base sm:text-lg font-semibold truncate">
+{{--            {{ $movieTitle }}--}}
+        </h1>
+        <div></div>
+    </div>
 
-            <div class="flex gap-3 mb-4">
-                <button wire:click="setEmbedType('vid')" class="{{ $embedType === 'vid' ? 'bg-blue-700' : 'bg-gray-700' }} px-3 py-1 rounded">Vidlink.pro</button>
-                <button wire:click="setEmbedType('embed')" class="{{ $embedType === 'embed' ? 'bg-blue-700' : 'bg-gray-700' }} px-3 py-1 rounded">Embed.su</button>
-                <button wire:click="setEmbedType('auto')" class="{{ $embedType === 'auto' ? 'bg-blue-700' : 'bg-gray-700' }} px-3 py-1 rounded">AutoEmbed</button>
-            </div>
-
-
-
-
-            <div class="h-[calc(100vh-300px)] w-full">
-                <iframe src="{{ $embedUrl }}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            @if ($mediaType === 'tv')
-                <div class="flex gap-4 my-4 items-center">
-                    <div>
-                        <label class="block mb-1">Season</label>
-                        <select wire:model="selectedSeason" class="text-black px-2 py-1 rounded">
-                            @foreach ($seasons as $season)
-                                <option value="{{ $season['season_number'] }}">
-                                    {{ $season['name'] }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block mb-1">Episodes</label>
-                        <div class="flex flex-wrap gap-2">
-                            @php
-                                $episodesCount = collect($seasons)
-                                    ->firstWhere('season_number', $selectedSeason)['episode_count'] ?? 1;
-                            @endphp
-
-                            @for ($i = 1; $i <= $episodesCount; $i++)
-                                <button
-                                    wire:click="$set('selectedEpisode', {{ $i }})"
-                                    class="px-3 py-1 rounded
-                    {{ $selectedEpisode === $i ? 'bg-blue-600 text-white' : 'bg-gray-200 text-black' }}
-                    hover:bg-blue-500 hover:text-white transition"
-                                >
-                                    {{ $i }}
-                                </button>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
-            @endif
+    {{-- Player --}}
+    <div class="flex-grow px-4 sm:px-8 pb-4">
+        <div class="w-full h-[calc(100vh-220px)] rounded-md overflow-hidden scrollbar-hide">
+            <iframe
+                src="{{ $embedUrl }}"
+                frameborder="0"
+                allowfullscreen
+                class="w-full h-full rounded-md"
+            ></iframe>
         </div>
     </div>
+
+    {{-- Embed Source Buttons --}}
+    <div class="flex flex-wrap justify-center gap-2 px-4 pb-6">
+{{--        <button wire:click="setEmbedType('vidcloud')" class="{{ $embedType === 'vidcloud' ? 'bg-red-600' : 'bg-gray-700' }} text-white px-4 py-2 rounded">--}}
+{{--            Vidcloud--}}
+{{--        </button>--}}
+        <button wire:click="setEmbedType('embed')" class="{{ $embedType === 'embed' ? 'bg-red-600' : 'bg-gray-700' }} text-white px-4 py-2 rounded">
+            Embed.su
+        </button>
+        <button wire:click="setEmbedType('vid')" class="{{ $embedType === 'vid' ? 'bg-red-600' : 'bg-gray-700' }} text-white px-4 py-2 rounded">
+            Vidlink.pro
+        </button>
+        <button wire:click="setEmbedType('auto')" class="{{ $embedType === 'auto' ? 'bg-red-600' : 'bg-gray-700' }} text-white px-4 py-2 rounded">
+            AutoEmbed.cc
+        </button>
+    </div>
+
 </div>

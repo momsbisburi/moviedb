@@ -1,11 +1,12 @@
-<div class="space-y-10 px-4">
-    <livewire:header class="mb-32" />
+<div class="space-y-4 px-4">
+    <livewire:header class="" />
+    <div class="pt-32"></div>
     @foreach([
         'Trending Now' => $trending,
         'Popular Series' => $popular,
         'Top Rated' => $topRated,
     ] as $title => $list)
-        <section class="pt-4 px-4 sm:px-8">
+        <section class="px-4 sm:px-8">
             <h2 class="text-xl sm:text-2xl font-bold mb-4">{{$title}}</h2>
             <div class="dragscroll flex space-x-3 overflow-x-auto whitespace-nowrap scrollbar-hide cursor-grab select-none pb-2">
                 @foreach($list as $tv)

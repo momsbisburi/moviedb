@@ -33,8 +33,9 @@ class MediaDetail extends Component
 
     public function updatedSelectedSeason()
     {
-
         $this->selectedEpisode = 1;
+        // Optionally reassign seasons to force re-render
+        $this->seasons = $this->seasons;
     }
 
     public function fetchMediaDetails()

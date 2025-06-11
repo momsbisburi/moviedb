@@ -2,18 +2,23 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
+use App\Services\TmdbService;
 
 class SearchBar extends Component
 {
-    public $query = '';
+    public string $query = '';
+    public array $results = [];
 
-    public function search()
+    public function updatedQuery()
     {
-        if (trim($this->query) !== '') {
-            return redirect()->route('search.results', ['query' => $this->query]);
+        if (strlen($this->query) < 2) {
+            $this->results = [];
+            return;
         }
+
+        $tmdb = app(TmdbService::class);
+        $this->results = $tmdb->search($this->query)['results'] ?? [];
     }
 
     public function render()

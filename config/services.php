@@ -36,7 +36,7 @@ return [
     ],
     'tmdb' => [
         'base_uri' => 'https://api.themoviedb.org/3/',
-        'bearer' => env('TMDB_BEARER'),
+        'key' => env('TMDB_BEARER'),
     ],
 
 ];

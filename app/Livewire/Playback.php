@@ -57,10 +57,10 @@ class Playback extends Component
         if (!$this->imdbId) return '';
 
         if ($this->type === 'movie') {
-            return "https://vidsrc.xyz/embed/movie?imdb={$this->imdbId}";
+            return "https://player.videasy.net/movie/{$this->id}";
         }
 
-        return "https://vidsrc.xyz/embed/tv?imdb={$this->imdbId}&season={$this->selectedSeason}&episode={$this->selectedEpisode}";
+        return "https://player.videasy.net/tv/{$this->id}/{$this->selectedSeason}/{$this->selectedEpisode}";
     }
 
     public function render()

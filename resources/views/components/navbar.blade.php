@@ -2,8 +2,8 @@
     <div class="flex justify-between items-center">
         {{-- Left: Logo + Links --}}
         <div class="flex items-center space-x-6">
-            <a href="/" class="text-red-600 text-2xl font-bold">NETFLIX</a>
-            <a href="/browse" class="text-sm hover:text-gray-300">Home</a>
+            <a href="/" class="text-red-600 text-2xl font-bold">DUPEFLIX</a>
+            <a href="/" class="text-sm hover:text-gray-300">Home</a>
             <a href="/tv" class="text-sm hover:text-gray-300">TV Shows</a>
             <a href="/movies" class="text-sm hover:text-gray-300">Movies</a>
             <a href="/my-list" class="text-sm hover:text-gray-300">My List</a>

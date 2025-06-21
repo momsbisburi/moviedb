@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Clone</title>
+    <title>DupeFlix</title>
     <meta name="description" content="DupeFlix">
     <meta name="author" content="DupeFlix">
 
-    <meta property="og:title" content="Netflix Clone">
-    <meta property="og:description" content="A pixel-perfect Netflix clone built with Livewire and Tailwind CSS">
+    <meta property="og:title" content="DupeFlix">
+    <meta property="og:description" content="My Movies">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png">
 

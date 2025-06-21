@@ -23,6 +23,7 @@ class TvShows extends Component
 
     public function showModal($tv)
     {
+
         $this->selectedTv = $tv;
     }
 

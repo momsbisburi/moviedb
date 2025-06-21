@@ -32,7 +32,7 @@ class RegisterForm extends Component
             ]);
 
             Auth::login($user);
-            return redirect('/profiles');
+            return redirect('/');
 
         } catch (\Exception $e) {
             $this->error = 'Failed to create account';
